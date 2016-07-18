@@ -4,11 +4,13 @@
 #include <ctime>
 #include <random>
 #include <cmath>
+#include <list>
+#include <iterator>
+#include "GraphObject.h"
+#include "Physics.h"
 using namespace std;
-int rectX,rectY,rectSize;
-int foodX,foodY;
-int vX,vY;
-
+list<GraphObject> ObjList;
+Physics phys(ObjList);
 int windH,windW;
 void Initialize()
 {
@@ -20,12 +22,16 @@ glClearColor(0.0,0.0,0.0,1.0);
 //glLoadIdentity();
 glOrtho(0,windW,0,windH,-1.0,1.0);
 }
-void loop(){
-	cout<<"asd"<<endl;
-}
+
 void Draw()
 {
 glClear(GL_COLOR_BUFFER_BIT);
+phys.CalculatePhysics();
+for (auto i = ObjList.begin; i != ObjList.end; i++)
+  i->paint();
+
+
+/*
  rectX+=vX;
 	rectY+=vY;
 //Отрисовка квадрата 
@@ -52,7 +58,7 @@ glVertex3f(foodX+rectSize,foodY+rectSize,0.0);
 glVertex3f(foodX,foodY+rectSize,0.0); 
 
 
-
+*/
 glEnd();
 glFlush();
 Sleep(15);
@@ -60,34 +66,26 @@ Sleep(15);
 glutSwapBuffers();
 }
 void key (unsigned char  key,int x,int y ){
-	if(key=='w') vY=4;
-	if(key=='s') vY=-4;
-	if(key=='d') vX=4;
-	if(key=='a') vX=-4;
+  if(key=='w') ObjList.front().setVy(4);
+	if(key=='s') ObjList.front().setVy(-4);
+	if(key=='d') ObjList.front().setVx(4);
+	if(key=='a') ObjList.front().setVy(-4);
 	
-	cout<<"Key Down"<<endl<<rectX<<" ; "<<rectY<<endl;
 }
 void keyUp(unsigned char  key,int x,int y ){
-	if(key=='w') vY=0;
-	if(key=='s') vY=0;
-	if(key=='d') vX=0;
-	if(key=='a') vX=0;
-	cout<<"Key Up"<<endl<<vX<<" ; "<<vY<<endl;
+	  if(key=='w') ObjList.front().setVy(0);
+	if(key=='s') ObjList.front().setVy(0);
+	if(key=='d') ObjList.front().setVx(0);
+	if(key=='a') ObjList.front().setVy(0);
 }
 //Войти в главный цикл
 int main(int argc, char **argv)
 {
-	vX=0;
-	vY=0;
-	rectX=0;
-	rectY=0;
+  ObjList.push_back(*(new GraphObject(windW/2, windH/2, 40, 40)));
+  ObjList.push_back(*(new GraphObject(windW/2, 0, 200, 40)));
+
 	windH=400;
 	windW=400;
-	rectSize=25;
-
-	srand(time(NULL));
-
-	
 
 
 glutInit(&argc,argv);
