@@ -27,7 +27,7 @@ void Draw()
 {
 glClear(GL_COLOR_BUFFER_BIT);
 phys.CalculatePhysics();
-for (auto i = ObjList.begin; i != ObjList.end; i++)
+for (auto i = ObjList.begin(); i != ObjList.end(); i++)
   i->paint();
 
 
@@ -81,8 +81,8 @@ void keyUp(unsigned char  key,int x,int y ){
 //Войти в главный цикл
 int main(int argc, char **argv)
 {
-  ObjList.push_back(*(new GraphObject(windW/2, windH/2, 40, 40)));
-  ObjList.push_back(*(new GraphObject(windW/2, 0, 200, 40)));
+  ObjList.push_back(*(new GraphObject(windW/2, windH/2, 40, 40, true)));
+  ObjList.push_back(*(new GraphObject(windW/2, 0, 200, 40, false)));
 
 	windH=400;
 	windW=400;
