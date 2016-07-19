@@ -1,15 +1,3 @@
-﻿  Source.cpp
-  Создание кода
+﻿  Создание кода
   Создание кода завершено
-glut32.lib(glut32.dll) : error LNK2026: небезопасный модуль для образа SAFESEH.
-glut32.lib(glut32.dll) : error LNK2026: небезопасный модуль для образа SAFESEH.
-glut32.lib(glut32.dll) : error LNK2026: небезопасный модуль для образа SAFESEH.
-glut32.lib(glut32.dll) : error LNK2026: небезопасный модуль для образа SAFESEH.
-glut32.lib(glut32.dll) : error LNK2026: небезопасный модуль для образа SAFESEH.
-glut32.lib(glut32.dll) : error LNK2026: небезопасный модуль для образа SAFESEH.
-glut32.lib(glut32.dll) : error LNK2026: небезопасный модуль для образа SAFESEH.
-glut32.lib(glut32.dll) : error LNK2026: небезопасный модуль для образа SAFESEH.
-glut32.lib(glut32.dll) : error LNK2026: небезопасный модуль для образа SAFESEH.
-glut32.lib(glut32.dll) : error LNK2026: небезопасный модуль для образа SAFESEH.
-glut32.lib(glut32.dll) : error LNK2026: небезопасный модуль для образа SAFESEH.
-C:\GitRepositories\PetProject\Test1\Release\Test1.exe : fatal error LNK1281: Не удается создать образ SAFESEH.
+  Test1.vcxproj -> C:\GitRepositories\PetProject\Test1\Release\Test1.exe

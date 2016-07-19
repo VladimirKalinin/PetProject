@@ -13,6 +13,7 @@ using namespace std;
 list<GraphObject> List;
 Physics phys;
 int windH,windW;
+int worldX, worldY;
 void Initialize()
 {
 //Выбрать фоновый (очищающий) цвет
@@ -29,8 +30,18 @@ void Draw()
 
 	glClear(GL_COLOR_BUFFER_BIT);
 	phys.CalculatePhysics();
+
+ if (List.front().getX() + worldX > windW - 100)
+   worldX-=List.front().getVx();
+ if (List.front().getX() + worldX < 100)
+   worldX-=List.front().getVx();
+ if (List.front().getY() + worldY > windH - 100)
+   worldY-=List.front().getVy();
+ if (List.front().getY() + worldY < 100)
+   worldY-=List.front().getVy();
+
 	for (list<GraphObject>::iterator i = List.begin(); i != List.end(); i++)
-		i->draw();
+		i->draw(worldX, worldY);
 
 	Sleep(15);
 	glutSwapBuffers();
@@ -57,10 +68,10 @@ void keyUp(unsigned char  key,int x,int y ){
 //Войти в главный цикл
 int main(int argc, char **argv)
 {
- 
 	windH=400;
 	windW=400;
-
+ worldX = 0;
+ worldY = 0;
   List.push_back(*(new GraphObject(windW/2, windH/2, 40, 40, true)));
   List.push_back(*(new GraphObject(windW/2, 0, 200, 40, false)));
   List.push_back(*(new GraphObject(0, 0, 170, 40, false)));

@@ -90,13 +90,13 @@ public:
 				)
   );
 }
-		void draw() {
+		void draw(int worldX, int worldY) {
 			glColor3f(1.0,1.0,1.0); //Выбираем белый цвет
 			glBegin(GL_POLYGON);
-				glVertex3f(X,Y,0.0); 
-				glVertex3f(X+W,Y,0.0); 
-				glVertex3f(X+W,Y+H,0.0); 
-				glVertex3f(X,Y+H,0.0); 
+				glVertex3f(X + worldX, Y + worldY, 0.0); 
+				glVertex3f(X + W + worldX, Y + worldY, 0.0); 
+				glVertex3f(X + W + worldX,Y + H + worldY,0.0); 
+				glVertex3f(X + worldX,Y + H + worldY, 0.0); 
 			glEnd();
 		}
 
