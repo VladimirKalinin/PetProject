@@ -11,7 +11,7 @@
 #include "Physics.h"
 using namespace std;
 list<GraphObject> List;
-Physics phys(List);
+Physics phys;
 int windH,windW;
 void Initialize()
 {
@@ -36,28 +36,37 @@ void Draw()
 	glutSwapBuffers();
 }
 void key (unsigned char  key,int x,int y ){
-	if(key=='w') List.front().setVy(4);
+	if(key=='w') {
+   if( List.front().isJump()){
+     List.front().setVy(12);
+      List.front().setJump(false);
+   }
+ }
 	if(key=='s') List.front().setVy(-4);
 	if(key=='d') List.front().setVx(4);
-	if(key=='a') List.front().setVy(-4);
+	if(key=='a') List.front().setVx(-4);
 	
 }
 void keyUp(unsigned char  key,int x,int y ){
 	if(key=='w') List.front().setVy(0);
+
 	if(key=='s') List.front().setVy(0);
 	if(key=='d') List.front().setVx(0);
-	if(key=='a') List.front().setVy(0);
+	if(key=='a') List.front().setVx(0);
 }
 //Войти в главный цикл
 int main(int argc, char **argv)
 {
+ 
+	windH=400;
+	windW=400;
 
   List.push_back(*(new GraphObject(windW/2, windH/2, 40, 40, true)));
   List.push_back(*(new GraphObject(windW/2, 0, 200, 40, false)));
-
-
-	windH=400;
-	windW=400;
+  List.push_back(*(new GraphObject(0, 0, 170, 40, false)));
+  List.push_back(*(new GraphObject(380, 40, 300, 40, false)));
+  List.push_back(*(new GraphObject(300, 45, 50, 5, false)));
+   phys= *(new Physics(&List));
 
 
 	glutInit(&argc,argv);

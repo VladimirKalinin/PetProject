@@ -2,7 +2,8 @@
 class GraphObject {
 private:
   int X, Y, vX, vY, W, H;
-  bool FALL;
+
+  bool FALL,JUMP;
 public:
   GraphObject(int x, int y, int w, int h, bool fall) {
     X = x;
@@ -16,7 +17,12 @@ public:
   bool isFall() {
     return FALL;
   }
-
+  bool  isJump(){
+    return JUMP;
+  }
+  void setJump(bool j){
+    JUMP=j;
+  }
   void setVx(int i){
     vX=i;
   }
@@ -59,7 +65,7 @@ public:
 					(
 						( X>=go.getX() && X<=go.getX() + go.getW())||( X+W>=go.getX() && getX()+getW()<=go.getX()+go.getW()  )
 					) && (
-						( Y>=go.getY() && Y<=go.getY() + go.getH() )||( X+H>=go.getY() && X+H<=go.getY() + go.getH() )
+						( Y>=go.getY() && Y<=go.getY() + go.getH() )||( Y+H>=go.getY() && Y+H<=go.getY() + go.getH() )
 						)
 				)||(
 					(

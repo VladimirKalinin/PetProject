@@ -1,33 +1,51 @@
 #pragma once
-
+#include <iostream>
 #include <list>
 #include <iterator>
+using namespace std;
 class Physics {
 private:
-    list< class GraphObject> ObjList;
+    list <GraphObject> *ObjList;
    
 public:
-
-  Physics(list<GraphObject> Obj){
+  Physics(){
+    cout<<"Phys"<<endl;
+  }
+  Physics(list <GraphObject> *Obj){
     ObjList = Obj;
   }
 
   void CalculatePhysics() {
    
-    for (list<GraphObject> :: iterator i = ObjList.begin(); i != ObjList.end(); i++) {
-        for (list<GraphObject> :: iterator j = ObjList.begin(); j != ObjList.end(); i++){
+    for (list<GraphObject> :: iterator i = ObjList->begin(); i != ObjList->end(); i++) {
+      if (i->isFall())
+          i->setVy(i->getVy() - 1);
+       i->setX(i->getX() + i->getVx());
+
+        for (list<GraphObject> :: iterator j = ObjList->begin(); j != ObjList->end(); j++){
           if (i == j)
-            break;
-          i->setX(i->getX() + i->getVx());
-          i->setY(i->getY() + i->getVy());
+            continue;
           if (i->cross(*j)) {
             i->setX(i->getX() - i->getVx());
-            i->setY(i->getY() - i->getVy());
             break;
           }
+         
         }
-        if (i->isFall())
-          i->setVy(i->getVy() - 3);
+        i->setY(i->getY() + i->getVy());
+
+        for (list<GraphObject> :: iterator j = ObjList->begin(); j != ObjList->end(); j++){
+          if (i == j)
+            continue;
+          if (i->cross(*j)) {
+            i->setY(i->getY() - i->getVy());
+            i->setVy(0);
+            i->setJump(true);
+            break;
+          }
+         
+        }
+         
+
       }
     }
   };
