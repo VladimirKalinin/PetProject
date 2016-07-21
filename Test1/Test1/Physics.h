@@ -21,12 +21,12 @@ public:
       if (i->isFall())
           i->setVy(i->getVy() - 1);
 
-       i->setX(i->getX() + i->getVx());
+       i->setX(i->getX() - i->getVLeft() + i->getVRight());
         for (list<GraphObject> :: iterator j = ObjList->begin(); j != ObjList->end(); j++){
           if (i == j)
             continue;
           if (i->cross(*j)) {
-            i->setX(i->getX() - i->getVx());
+            i->setX(i->getX()  + i->getVLeft() - i->getVRight());
             break;
           }
          

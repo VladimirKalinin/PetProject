@@ -1,7 +1,7 @@
 
 class GraphObject {
 private:
-  int X, Y, vX, vY, W, H;
+  int X, Y, vRight, vLeft, vY, W, H;
 
   bool FALL,JUMP;
 public:
@@ -10,7 +10,8 @@ public:
     Y = y;
     W = w;
     H = h;
-    vX = 0;
+    vRight = 0;
+    vLeft = 0;
     vY = 0;
     FALL = fall;
   }
@@ -23,10 +24,12 @@ public:
   void setJump(bool j){
     JUMP=j;
   }
-  void setVx(int i){
-    vX=i;
+  void setVLeft(int i){
+    vLeft=i;
   }
-
+  void setVRight(int i){
+    vRight=i;
+  }
 		int getX(){
 			return X;
 		}
@@ -45,8 +48,11 @@ public:
 		void setVy(int i){
 			vY=i;
 		}
-		int getVx(){
-			return vX;
+		int getVLeft(){
+			return vLeft;
+		}
+  int getVRight(){
+			return vRight;
 		}
   		int getVy(){
 			return vY;

@@ -9,6 +9,7 @@
 #include <iterator>
 #include "GraphObject.h"
 #include "Physics.h"
+#include <fstream>
 using namespace std;
 list<GraphObject> List;
 Physics phys;
@@ -31,13 +32,13 @@ void Draw()
 	glClear(GL_COLOR_BUFFER_BIT);
 	phys.CalculatePhysics();
 
- if (List.front().getX() + worldX > windW - 100)
-   worldX-=List.front().getVx();
- if (List.front().getX() + worldX < 100)
-   worldX-=List.front().getVx();
- if (List.front().getY() + worldY > windH - 100)
+ if (List.front().getX() + worldX > windW - 300)
+   worldX = worldX + List.front().getVLeft() - List.front().getVRight();
+ if (List.front().getX() + worldX < 300)
+   worldX = worldX + List.front().getVLeft() - List.front().getVRight();
+ if (List.front().getY() + worldY > windH - 300)
    worldY-=List.front().getVy();
- if (List.front().getY() + worldY < 100)
+ if (List.front().getY() + worldY < 300)
    worldY-=List.front().getVy();
 
 	for (list<GraphObject>::iterator i = List.begin(); i != List.end(); i++)
@@ -49,34 +50,49 @@ void Draw()
 void key (unsigned char  key,int x,int y ){
 	if(key=='w') {
    if( List.front().isJump()){
-     List.front().setVy(12);
+     List.front().setVy(15);
       List.front().setJump(false);
    }
  }
 	if(key=='s') List.front().setVy(-4);
-	if(key=='d') List.front().setVx(4);
-	if(key=='a') List.front().setVx(-4);
+	if(key=='d') List.front().setVRight(4);
+	if(key=='a') List.front().setVLeft(4);
 	
 }
 void keyUp(unsigned char  key,int x,int y ){
 	if(key=='w') List.front().setVy(0);
-
 	if(key=='s') List.front().setVy(0);
-	if(key=='d') List.front().setVx(0);
-	if(key=='a') List.front().setVx(0);
+	if(key=='d') List.front().setVRight(0);
+	if(key=='a') List.front().setVLeft(0);
 }
 //Войти в главный цикл
 int main(int argc, char **argv)
 {
-	windH=400;
-	windW=400;
+	windH=800;
+	windW=800;
  worldX = 0;
  worldY = 0;
-  List.push_back(*(new GraphObject(windW/2, windH/2, 40, 40, true)));
-  List.push_back(*(new GraphObject(windW/2, 0, 200, 40, false)));
-  List.push_back(*(new GraphObject(0, 0, 170, 40, false)));
-  List.push_back(*(new GraphObject(380, 40, 300, 40, false)));
-  List.push_back(*(new GraphObject(300, 45, 50, 5, false)));
+  List.push_back(*(new GraphObject(windW/2, windH-300, 40, 40, true)));
+  int n, x, y, w, h;
+  int c = 600;          //константа смещения
+
+  char buff[50]; // буфер промежуточного хранения считываемого из файла текста
+  ifstream fin("map.txt"); // открыли файл для чтения
+ 
+  fin >> n; // считали первое слово из файла
+  cout << n << endl; // напечатали это слово
+  for (int i = 0; i < n; i++) {
+    fin >> x;
+    fin >> y;
+    fin >> w;
+    fin >> h;
+    List.push_back(*(new GraphObject(x, y + c, w, h, false)));
+  }
+
+  fin.close(); // закрываем файл 
+  
+//  List.push_back(*(new GraphObject(windW/2-100, 0, 400, -40, false)));
+//  List.push_back(*(new GraphObject(windW/2 +50, 50, 400, 100, false)));
    phys= *(new Physics(&List));
 
 
