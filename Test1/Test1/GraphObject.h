@@ -1,25 +1,45 @@
-#include <glut.h>
+#pragma once
+#include "AllHeaders.h"
 
+using namespace std; 
 class GraphObject {
-	private:
-		int X, Y, vX, vY, W, H;
-
-	public:
-		GraphObject(int x, int y, int w, int h) {
-			X = x;
-			Y = y;
-			W = w;
-			H = h;
-			vX = 0;
-			vY = 0;
-    
-		}
+private:
+  int X, Y, vRight, vLeft, vY, W, H;
+  int texture;
+  bool FALL,JUMP;
+  
+public:
+  GraphObject(int x, int y, int w, int h, bool fall,int t) {
+    X = x;
+    Y = y;
+    W = w;
+    H = h;
+    vRight = 0;
+    vLeft = 0;
+    vY = 0;
+    FALL = fall;
+	texture=t;
+	
+  }
+  bool isFall() {
+    return FALL;
+  }
+  bool  isJump(){
+    return JUMP;
+  }
+  void setJump(bool j){
+    JUMP=j;
+  }
+  void setVLeft(int i){
+    vLeft=i;
+  }
+  void setVRight(int i){
+    vRight=i;
+  }
 		int getX(){
 			return X;
 		}
-		int getY(){
-			return Y;
-		}
+
 		void setX(int i){
 			X=i;
 		}
@@ -27,20 +47,24 @@ class GraphObject {
 			Y=i;
 		}
 
-		void setVx(int i){
-			vX=i;
-		}
+  int getY(){
+    return Y;
+  }
 
 		void setVy(int i){
 			vY=i;
 		}
-		int getVx(){
-			return vX;
+		int getVLeft(){
+			return vLeft;
 		}
-
-		int getVy(){
+  int getVRight(){
+			return vRight;
+		}
+  		int getVy(){
 			return vY;
 		}
+
+
 		int getW(){
 			return W;
 		}
@@ -53,13 +77,13 @@ class GraphObject {
 					(
 						( X>=go.getX() && X<=go.getX() + go.getW())||( X+W>=go.getX() && getX()+getW()<=go.getX()+go.getW()  )
 					) && (
-						( Y>=go.getY() && Y<=go.getY() + go.getH() )||( X+H>=go.getY() && X+H<=go.getY() + go.getH() )
+						( Y>=go.getY() && Y<=go.getY() + go.getH() )||( Y+H>=go.getY() && Y+H<=go.getY() + go.getH() )
 						)
 				)||(
 					(
-						( go.getX()>=X && go.getX()<=X+W )||( go.getX()+go.getW()>=X && go.getX()+go.getW()<=a.x1  )
+						( go.getX()>=X && go.getX()<=X+W )||( go.getX()+go.getW()>=X && go.getX()+go.getW()<=X+W  )
 					) && (
-						( go.getY()>=Y && go.getY()<=a.y1 )||( go.getY() + go.getH()>=Y && go.getY() + go.getH()<=a.y1 )
+						( go.getY()>=Y && go.getY()<=Y+H )||( go.getY() + go.getH()>=Y && go.getY() + go.getH()<=Y+H )
 					)
 				)
 				)||(
@@ -78,13 +102,16 @@ class GraphObject {
 				)
   );
 }
-		void draw() {
-			glColor3f(1.0,1.0,1.0); //Выбираем белый цвет
+		void draw(int worldX, int worldY) {
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glBindTexture(GL_TEXTURE_2D,texture);
+			glColor4f(1,1,1,1); //Выбираем белый цвет
 			glBegin(GL_POLYGON);
-				glVertex3f(X,Y,0.0); 
-				glVertex3f(X+W,Y,0.0); 
-				glVertex3f(X+W,Y+H,0.0); 
-				glVertex3f(X,Y+H,0.0); 
+				glTexCoord3i(0,0,0); glVertex3i(X + worldX, Y + worldY, 0.0); 
+				glTexCoord3i(((double)W)/32,0,0); glVertex3i(X + W + worldX, Y + worldY, 0.0); 
+				glTexCoord3i(((double)W)/32,((double)H)/32,0); ;glVertex3i(X + W + worldX,Y + H + worldY,0.0); 
+				glTexCoord3i(0,((double)H)/32,0); ;glVertex3i(X + worldX,Y + H + worldY, 0.0); 
 			glEnd();
 		}
 

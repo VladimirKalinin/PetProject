@@ -1,8 +1,0 @@
-﻿Сборка начата 18.7.2016 15:36:18.
-     1>Проект "D:\GitRepositories\PetProject\Test1\Test1\Test1.vcxproj" в узле 2 (целевые объекты build).
-     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Platforms\Win32\Microsoft.Cpp.Win32.Targets(518,5): error MSB8008: указанный набор инструментов платформы (v110) не установлен или недопустим. Убедитесь, что выбрано поддерживаемое значение PlatformToolset.
-     1>Построение проекта "D:\GitRepositories\PetProject\Test1\Test1\Test1.vcxproj" завершено (целевые объекты build) с ошибкой.
-
-СБОЙ построения.
-
-Затраченное время: 00:00:00.32
