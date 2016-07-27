@@ -16,6 +16,7 @@
   <ItemGroup>
     <ClInclude Include="AllHeaders.h" />
     <ClInclude Include="GraphObject.h" />
+    <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Physics.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

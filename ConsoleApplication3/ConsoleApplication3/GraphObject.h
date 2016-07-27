@@ -4,7 +4,7 @@
 using namespace std; 
 class GraphObject {
 private:
-  int X, Y, vRight, vLeft, vY, W, H;
+  int X, Y, vY, vX, W, H;
   GLuint *texture;
   bool FALL,JUMP;
   
@@ -14,9 +14,8 @@ public:
     Y = y;
     W = w;
     H = h;
-    vRight = 0;
-    vLeft = 0;
     vY = 0;
+    vX = 0;
     FALL = fall;
 	texture=t;
 	
@@ -30,11 +29,11 @@ public:
   void setJump(bool j){
     JUMP=j;
   }
-  void setVLeft(int i){
-    vLeft=i;
+  void setvX(int i){
+    vX=i;
   }
-  void setVRight(int i){
-    vRight=i;
+  void setvY(int i){
+    vY=i;
   }
 		int getX(){
 			return X;
@@ -51,19 +50,12 @@ public:
     return Y;
   }
 
-		void setVy(int i){
-			vY=i;
+		int getvX(){
+			return vX;
 		}
-		int getVLeft(){
-			return vLeft;
-		}
-  int getVRight(){
-			return vRight;
-		}
-  		int getVy(){
+  int getvY(){
 			return vY;
 		}
-
 
 		int getW(){
 			return W;

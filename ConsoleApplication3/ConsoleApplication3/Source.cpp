@@ -1,9 +1,11 @@
 #include "AllHeaders.h"
 #include "GraphObject.h"
+#include "Keyboard.h"
 #include <SOIL.h>
 using namespace std;
 list<GraphObject> List;
 Physics phys;
+Keyboard Key;
 int windH,windW;
 int worldX, worldY;
 GLuint   texture[3];// массив для  текстур
@@ -57,16 +59,16 @@ void Draw()
 	glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
 
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-	phys.CalculatePhysics();
+	phys.CalculatePhysics(&Key);
 
  if (List.front().getX() + worldX > windW - 300)
-   worldX = worldX + List.front().getVLeft() - List.front().getVRight();
+   worldX -= List.front().getvX();
  if (List.front().getX() + worldX < 300)
-   worldX = worldX + List.front().getVLeft() - List.front().getVRight();
+   worldX -= List.front().getvX();
  if (List.front().getY() + worldY > windH - 300)
-   worldY-=List.front().getVy();
+   worldY-=List.front().getvY() /*+ phys.getaY()*/;
  if (List.front().getY() + worldY < 300)
-   worldY-=List.front().getVy();
+   worldY-=List.front().getvY() /*+ phys.getaY()*/;
 
 	for (list<GraphObject>::iterator i = List.begin(); i != List.end(); i++)
 		i->draw(worldX, worldY);
@@ -74,24 +76,33 @@ void Draw()
 	Sleep(15);
 	glutSwapBuffers();
 }
-void key (unsigned char  key,int x,int y ){
-	if(key=='w') {
-   if( List.front().isJump()){
-     List.front().setVy(15);
-      List.front().setJump(false);
-   }
- }
-	if(key=='s') List.front().setVy(-4);
-	if(key=='d') List.front().setVRight(4);
-	if(key=='a') List.front().setVLeft(4);
-	
+//void key (unsigned char  key,int x,int y ){
+//	if(key=='w') {
+//   if( List.front().isJump()){
+//     List.front().setVy(15);
+//      List.front().setJump(false);
+//   }
+// }
+//	if(key=='s') List.front().setVy(-4);
+//	if(key=='d') List.front().setVRight(4);
+//	if(key=='a') List.front().setVLeft(4);
+//	
+//}
+//void keyUp(unsigned char  key,int x,int y ){
+//	if(key=='w') List.front().setVy(0);
+//	if(key=='s') List.front().setVy(0);
+//	if(key=='d') List.front().setVRight(0);
+//	if(key=='a') List.front().setVLeft(0);
+//}
+
+void KeyPush(unsigned char  key,int x,int y ) {
+  Key.key(key, x, y );
 }
-void keyUp(unsigned char  key,int x,int y ){
-	if(key=='w') List.front().setVy(0);
-	if(key=='s') List.front().setVy(0);
-	if(key=='d') List.front().setVRight(0);
-	if(key=='a') List.front().setVLeft(0);
+
+void KeyUp(unsigned char  key,int x,int y ) {
+  Key.keyUp(key, x, y );
 }
+
 //Войти в главный цикл
 int main(int argc, char **argv)
 {
@@ -131,8 +142,8 @@ int main(int argc, char **argv)
 	Initialize();			//Вызов функции Initialize
 	glutDisplayFunc(Draw);	
 	glutIdleFunc(Draw);
-	glutKeyboardFunc(key);
-	glutKeyboardUpFunc(keyUp);
+	glutKeyboardFunc(KeyPush);
+	glutKeyboardUpFunc(KeyUp);
 	glutMainLoop();
  
 	return 0;
