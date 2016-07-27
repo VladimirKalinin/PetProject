@@ -1,0 +1,7 @@
+﻿  Source.cpp
+c:\gitrepositories\petproject\consoleapplication3\consoleapplication3\source.cpp(106): warning C4101: buff: неиспользованная локальная переменная
+SOIL.lib(image_DXT.obj) : warning LNK4099: "vc100.pdb" PDB не найден с "SOIL.lib(image_DXT.obj)" или на "C:\GitRepositories\PetProject\ConsoleApplication3\Debug\vc100.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+SOIL.lib(image_helper.obj) : warning LNK4099: "vc100.pdb" PDB не найден с "SOIL.lib(image_helper.obj)" или на "C:\GitRepositories\PetProject\ConsoleApplication3\Debug\vc100.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+SOIL.lib(SOIL.obj) : warning LNK4099: "vc100.pdb" PDB не найден с "SOIL.lib(SOIL.obj)" или на "C:\GitRepositories\PetProject\ConsoleApplication3\Debug\vc100.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+SOIL.lib(stb_image_aug.obj) : warning LNK4099: "vc100.pdb" PDB не найден с "SOIL.lib(stb_image_aug.obj)" или на "C:\GitRepositories\PetProject\ConsoleApplication3\Debug\vc100.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+  ConsoleApplication3.vcxproj -> C:\GitRepositories\PetProject\ConsoleApplication3\Debug\ConsoleApplication3.exe
